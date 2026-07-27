@@ -1,13 +1,6 @@
-import { Card, CardHeader, CardFooter } from "./shared/components/Card";
+import { TasksPanel } from "./features/tasks/components/TaskPanel";
 function App() {
-return (
-<div className="p-8">
-<Card>
-  <CardHeader>Task status</CardHeader>
-<p>3 of 4 tasks completed.</p>
-<CardFooter>Last updated 2 minutes ago</CardFooter>
-</Card>
-</div>
-);
+ return <TasksPanel />
 }
+
 export default App;
