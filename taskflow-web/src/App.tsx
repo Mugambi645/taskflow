@@ -1,4 +1,4 @@
-import { TasksPanel } from "./features/tasks/components/TaskPanel";
+import { TasksPanel } from "./features/tasks";
 function App() {
  return <TasksPanel />
 }
