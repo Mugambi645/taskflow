@@ -1,16 +1,13 @@
-import { useState } from 'react'
-import './App.css'
-
+import { Card, CardHeader, CardFooter } from "./shared/components/Card";
 function App() {
-
-
-  return (
-    <>
-    <h1 className="p-8 text-3xl font-bold text-blue-600">
-Tailwind is working
-</h1>
-    </>
-  )
+return (
+<div className="p-8">
+<Card>
+  <CardHeader>Task status</CardHeader>
+<p>3 of 4 tasks completed.</p>
+<CardFooter>Last updated 2 minutes ago</CardFooter>
+</Card>
+</div>
+);
 }
-
-export default App
+export default App;
