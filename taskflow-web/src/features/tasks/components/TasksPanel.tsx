@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Tabs } from "@/shared/components/Tabs";
 import { useTasks } from "../api/useTasks";
+import { useAddTask } from "../hooks/useAddTask";
 import { TaskCard } from "./TaskCard";
 import { TaskSearchInput } from "./TaskSearchInput";
 import { NewTaskInput } from "./NewTaskInput";
@@ -10,23 +11,19 @@ const [view, setView] = useState<"active" | "done">("active");
 const [search, setSearch] = useState("");
 const filter: TaskStatus | "all" = view === "done" ? "done" : "all";
 const { tasks, isLoading } = useTasks(filter);
+const { state: addState, addTask } = useAddTask();
 const visible = tasks
 .filter((t) => (view === "active" ? t.status !== "done" : true))
 .filter((t) => t.title.toLowerCase().includes(search.toLowerCase()));
-async function handleAdd(title: string) {
-await fetch("/api/tasks", {
-method: "POST",
-headers: { "Content-Type": "application/json" },
-body: JSON.stringify({
-title,
-status: "todo",
-updatedAt: new Date().toISOString(),
-}),
-});
-}
 return (
 <div className="mx-auto max-w-md p-8">
-<NewTaskInput onAdd={handleAdd} />
+<NewTaskInput onAdd={addTask} disabled={addState.status === "submitting"} />
+{addState.status === "error" && (
+    <p role="alert" className="mb-4 text-sm text-red-600">
+Could not add task: {addState.message}
+</p>
+
+)}
 <TaskSearchInput value={search} onChange={setSearch} />
 <Tabs defaultTab="active">
 <Tabs.List>
